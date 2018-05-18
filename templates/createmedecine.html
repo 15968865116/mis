@@ -1,0 +1,46 @@
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<a>这里是开药方页面</a>
+<a>药单表（药品编号、药品名称、数量、开药时间、开药医生姓名、病人编号、总价）</a>
+
+<form method="post" url="/edit">
+    <input id='gongneng1' type='hidden' name='gongneng'>
+    <a>药品名称: </a><input  type='text' name='medicinename'><br>
+    <a>数量：    </a><input  type='text' name='medicinenum'><br>
+    <a>病人编号: </a><input  type='text' name='illnum'><br>
+    
+    <button type="submit" class="btn info"  onclick="myFunc(1)">添加</button>
+    <button type="submit" class="btn info" onclick="myFunc(2)" >提交药方</button>
+    <table border="1">
+        <tr>
+          <th>药品名称</th>
+          <th>药品数量</th>
+          <th>病人编号</th>
+        </tr>
+        {% for i in ypxx%}
+        <tr>
+          <th>{{i[0]}}</th>
+          <th>{{i[1]}}</th>
+          <th>{{i[2]}}</th> 
+        </tr>
+        
+        {%endfor%}
+      </table>
+    
+    
+    
+    
+</form>
+
+<script>
+        function myFunc(num)
+        {
+            if(num==1)
+            {
+                document.getElementById('gongneng1').value=1;
+            }
+            else if(num==2)
+            {
+                document.getElementById('gongneng1').value=2;
+            }
+        }
+</script>

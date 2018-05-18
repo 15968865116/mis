@@ -1,0 +1,23 @@
+<!doctype html>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<a>你好，{{username}}医生</a>
+<form method="post" url="/edit">
+    <input id='gongneng1' type='hidden' name='gongneng'>
+    <button type="submit" class="btn info"  onclick="myFunc(1)">开药方</button>
+    <button type="submit" class="btn info" onclick="myFunc(2)" >查看已开药方</button>
+    
+</form>
+<script>
+    function myFunc(num)
+    {
+        if(num==1)
+        {
+            document.getElementById('gongneng1').value=1;
+        }
+        else if(num==2)
+        {
+            document.getElementById('gongneng1').value=2;
+        }
+    }
+</script>
