@@ -1,26 +1,49 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
 <a>这里是开药方页面</a>
 <a>药单表（药品编号、药品名称、数量、开药时间、开药医生姓名、病人编号、总价）</a>
 
-<form method="post" url="/edit">
-    <input id='gongneng1' type='hidden' name='gongneng'>
-    <a>药品名称: </a><input  type='text' name='medicinename'><br>
+<form method="post" url="/edit" name="messageform">
+    <input id='gongneng1' type='hidden' name='gongneng' id='get'>
+    <input  type='hidden' name='medicinename' id='m'>
+    <a>药品名称:</a>
+    
+    <select name='medicinename1' id='mede'>
+    {%for j in selectvalue%}
+    <option value=""{{j}}"">{{j}}</option>
+   
+
+    {%endfor%}
+    </select><br>
+    {%if xinxi%}
+    <a>{{xinxi}}</a>
+    {%endif%}
     <a>数量：    </a><input  type='text' name='medicinenum'><br>
     <a>病人编号: </a><input  type='text' name='illnum'><br>
     
     <button type="submit" class="btn info"  onclick="myFunc(1)">添加</button>
+    <button type="submit" class="btn info" onclick="myFunc(3)" >删除前一行</button>
     <button type="submit" class="btn info" onclick="myFunc(2)" >提交药方</button>
     <table border="1">
         <tr>
           <th>药品名称</th>
+          <th>药品编号</th>
           <th>药品数量</th>
-          <th>病人编号</th>
+          <th>病人编号</th>         
+          <th>开药医生</th>
+          <th>总价</th>
+          <th>是否完成</th>
         </tr>
         {% for i in ypxx%}
         <tr>
           <th>{{i[0]}}</th>
+          <th>{{i[3]}}</th> 
           <th>{{i[1]}}</th>
-          <th>{{i[2]}}</th> 
+          <th>{{i[2]}}</th>          
+          <th>{{i[4]}}</th> 
+          <th>{{i[5]}}</th> 
+          <th>{{i[6]}}</th> 
+         
         </tr>
         
         {%endfor%}
@@ -30,17 +53,30 @@
     
     
 </form>
-
 <script>
-        function myFunc(num)
+    function myFunc(num)
+    {
+        if(num==1)
         {
-            if(num==1)
-            {
-                document.getElementById('gongneng1').value=1;
-            }
-            else if(num==2)
-            {
-                document.getElementById('gongneng1').value=2;
-            }
+            var obj = document.getElementById('mede'); //定位id
+            var index = obj.selectedIndex; // 选中索引
+            var text = obj.options[index].text; // 选中文本
+            var value = obj.options[index].value;
+            document.getElementById('m').value=text;
+            document.getElementById('gongneng1').value=1;
+            
         }
+        else if(num==2)
+        {
+            document.getElementById('gongneng1').value=2;
+        }
+        else if(num==3)
+        {
+            document.getElementById('gongneng1').value=3;
+        }
+    }
+    
+    
+    
 </script>
+

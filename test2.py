@@ -7,6 +7,13 @@ from flask import session
 from flask_session import Session
 from flask import g
 import pymssql
+import sys
+default_encoding = 'utf-8'
+if sys.getdefaultencoding() != default_encoding:
+    reload(sys)
+    sys.setdefaultencoding(default_encoding)
+
+
 
 
 conn = pymssql.connect(host=r"localhost",user=r"sa",password=r"123456",database=r"medecine",charset=r'utf8')
@@ -68,49 +75,153 @@ def readytocreate():
 
 @app.route('/create_medicine',methods=['GET'])
 def create_medicine():
-	return render_template('createmedecine.html')
+    global list_for_yd
+    cursor.execute('select m_name from duizhao')
+    allname=cursor.fetchall()
+    list_for_allname=[]
+    list_for_linshi1=list(allname)
+    
+    for i in range(len(list_for_linshi1)):
+        a=list_for_linshi1[i][0].encode('UTF-8')
+        b=a.strip()
+        list_for_allname.append(b)
+
+
+    
+    print(list_for_allname)
+    a=''
+    medicine_for_list={'ypxx':list_for_yd,'xinxi':a,'selectvalue':list_for_allname}
+    return render_template('createmedecine.html',**medicine_for_list)
 
 @app.route('/create_medicine',methods=['POST'])
 def create_medicine1():
-    
+
     list_for_now=[]#临时存储
     global list_for_yd
     num=request.form['gongneng']#操作
     if (num=='1'):#判断是什么操作
+        
         mn=request.form['medicinename']#药品名称
         sl=request.form['medicinenum']#数量
         br=request.form['illnum']#病人编号
         
-        list_for_now.append(mn)
-        list_for_now.append(sl)
-        list_for_now.append(br)
-        list_for_yd.append(list_for_now)
-        list_for_now=[]
+        if(mn!=''and sl!='' and br!=''):#判断是否有空，没有空参数进行下列操作
+            
+            slzs=int(sl)
+            list_for_now.append(mn)#药品名字进列表
+            list_for_now.append(slzs)#药品数量进列表
+            list_for_now.append(br)#病人编号进列表
+
+            cursor.execute('select m_id from duizhao where m_name=%s',mn)
+            ypid=cursor.fetchone()
+            ypid1=ypid[0]
+            ypidjm=ypid1.encode('UTF-8')        
+            list_for_now.append(ypidjm)#药品编号解码进列表
+
+            list_for_now.append(session['xingming'])#医生姓名进列表
+
+            cursor.execute('select m_price from duizhao where m_name=%s',mn)
+            prprice=cursor.fetchone()#找单价
+            prprice1=prprice[0]           
+            allprice=10.0
+            allprice=slzs*prprice1
+            list_for_now.append(allprice)
+
+            list_for_now.append('false')
+
+
+            list_for_yd.append(list_for_now)
+            list_for_now=[]
         
-        
-        medicine_for_list={'ypxx':list_for_yd}
-        
-        return render_template('createmedecine.html',**medicine_for_list)
+            cursor.execute('select m_name from duizhao')
+            allname=cursor.fetchall()
+            list_for_allname=[]
+            list_for_linshi1=list(allname)
+    
+            for i in range(len(list_for_linshi1)):
+
+                a=list_for_linshi1[i][0].encode('UTF-8')
+                b=a.strip()
+                list_for_allname.append(b)
+            a=''
+            medicine_for_list={'ypxx':list_for_yd,'xinxi':a,'selectvalue':list_for_allname}
+            return render_template('createmedecine.html',**medicine_for_list)
+
+        elif(num=='' or sl=='' or br==''):
+            cursor.execute('select m_name from duizhao')
+            allname=cursor.fetchall()
+            list_for_allname=[]
+            list_for_linshi1=list(allname)
+    
+            for i in range(len(list_for_linshi1)):
+
+                a=list_for_linshi1[i][0].encode('UTF-8')
+                b=a.strip()
+                list_for_allname.append(b)
+            a="有输入为空"
+            medicine_for_list={'ypxx':list_for_yd,'xinxi':a,'selectvalue':list_for_allname}
+            
+            return render_template('createmedecine.html',**medicine_for_list)
     elif(num=='2'):#判断是什么操作
         list_num=len(list_for_yd)
         for i in range(0,list_num):
-            cursor.execute('select m_id from duizhao where m_name=%s',list_for_yd[i][0])
-            m_id1=cursor.fetchone()
-            cursor.execute('select m_price from duizhao where m_name=%s',list_for_yd[i][0])
-            m_price1=cursor.fetchone()
-            nub=int(list_for_yd[i][1])
-            alprice=nub*m_price1
-            cursor.execute('insert into yaodao values(%s,%s,%d,%s,%s,%f,%s)',m_id1,list_for_yd[i][0],nub,session['xingming'],list_for_yd[i][2],alprice,'no')
+            cursor.execute('insert into yaodan(m_id,m_name,num,docname,ill_id,allpri,isok) values(%s,%s,%s,%s,%s,%s,%s)',(list_for_yd[i][3],list_for_yd[i][0],list_for_yd[i][1],list_for_yd[i][4],list_for_yd[i][2],list_for_yd[i][5],list_for_yd[i][6]))
             conn.commit()
-        session['cunzhi']=[]
+        return redirect(url_for('login_for_doc'))
+        
         
         
         return redirect(url_for('create_medicine'))
+    elif(num=='3'):
+        list_for_yd.pop();
+        cursor.execute('select m_name from duizhao')
+        allname=cursor.fetchall()
+        list_for_allname=[]
+        list_for_linshi1=list(allname)
+    
+        for i in range(len(list_for_linshi1)):#获取所有药品名字
 
+            a=list_for_linshi1[i][0].encode('UTF-8')
+            b=a.strip()
+            list_for_allname.append(b)
+
+        a=''
+        medicine_for_list={'ypxx':list_for_yd,'xinxi':a,'selectvalue':list_for_allname}
+        return render_template('createmedecine.html',**medicine_for_list)
 
 @app.route('/search_medicine',methods=['GET'])
 def search_medicine():
-	return render_template('search.html')
+    cursor.execute('select * from yaodan where docname=%s',session['xingming'])
+    all_news=cursor.fetchall()
+    print(all_news)
+    all_news_list=list(all_news)
+    list_news_lists=[]
+    list_for_show=[]
+    for i in range(len(all_news_list)):
+        m_id=all_news_list[i][0].encode('UTF-8')
+        mid1=m_id.strip()
+        m_name=all_news_list[i][1].encode('UTF-8')
+        name1=m_name.strip()
+        num=all_news_list[i][2]
+        docname=all_news_list[i][3].encode('UTF-8')
+        docname1=docname.strip()
+        ill_id=all_news_list[i][4].encode('UTF-8')
+        iid=ill_id.strip()
+        allpri=all_news_list[i][5]
+        isok=all_news_list[i][6].encode('UTF-8')
+        isok1=isok.strip()
+        list_news_lists.append(mid1)
+        list_news_lists.append(name1)
+        list_news_lists.append(num)
+        list_news_lists.append(docname1)
+        list_news_lists.append(iid)
+        list_news_lists.append(allpri)
+        list_news_lists.append(isok)
+        list_for_show.append(list_news_lists)
+        list_news_lists=[]
+
+    medicine_for_list={'ypxx':list_for_show}
+    return render_template('search.html',**medicine_for_list)
 
 @app.route('/login_for_cangku')#仓库管理
 def login_for_cangku():
