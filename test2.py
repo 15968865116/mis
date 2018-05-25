@@ -8,6 +8,7 @@ from flask_session import Session
 from flask import g
 import pymssql
 import sys
+import copy
 default_encoding = 'utf-8'
 if sys.getdefaultencoding() != default_encoding:
     reload(sys)
@@ -26,6 +27,10 @@ app=Flask(__name__)
 app.config['SECRET_KEY'] = 'you never guess' # 使用 session 必须要配置这个，不然会报500错误的！
 
 list_for_yd=[]
+j=0
+k=0
+wwc_count=0
+ywc_count=0 
 
 @app.route('/',methods=['GET'])
 def index():
@@ -163,15 +168,18 @@ def create_medicine1():
             
             return render_template('createmedecine.html',**medicine_for_list)
     elif(num=='2'):#判断是什么操作
-        list_num=len(list_for_yd)
+        list_for_yd1=[]
+        list_for_yd1=copy.deepcopy(list_for_yd)
+        list_for_yd=[]
+        list_num=len(list_for_yd1)
         for i in range(0,list_num):
-            cursor.execute('insert into yaodan(m_id,m_name,num,docname,ill_id,allpri,isok) values(%s,%s,%s,%s,%s,%s,%s)',(list_for_yd[i][3],list_for_yd[i][0],list_for_yd[i][1],list_for_yd[i][4],list_for_yd[i][2],list_for_yd[i][5],list_for_yd[i][6]))
+            cursor.execute('insert into yaodan(m_id,m_name,num,docname,ill_id,allpri,isok) values(%s,%s,%s,%s,%s,%s,%s)',(list_for_yd1[i][3],list_for_yd1[i][0],list_for_yd1[i][1],list_for_yd1[i][4],list_for_yd1[i][2],list_for_yd1[i][5],list_for_yd1[i][6]))
             conn.commit()
         return redirect(url_for('login_for_doc'))
         
         
         
-        return redirect(url_for('create_medicine'))
+        
     elif(num=='3'):
         list_for_yd.pop();
         cursor.execute('select m_name from duizhao')
@@ -191,6 +199,8 @@ def create_medicine1():
 
 @app.route('/search_medicine',methods=['GET'])
 def search_medicine():
+    list_yaodanwwcls=[]
+    list_yaodanywcls=[]
     cursor.execute('select * from yaodan where docname=%s',session['xingming'])
     all_news=cursor.fetchall()
     print(all_news)
@@ -228,9 +238,162 @@ def login_for_cangku():
     return render_template('cangku.html')
 
 
-@app.route('/login_for_yaofang')#药房管理
+@app.route('/login_for_yaofang',methods=['GET'])#药房管理
 def login_for_yaofang():
-    return render_template('yaofang.html')
+    cursor.execute('select m_name from duizhao')
+    allname=cursor.fetchall()
+    list_for_allname=[]
+    list_for_linshi1=list(allname)
+    
+    for i in range(len(list_for_linshi1)):#获取所有药品名字
+        a=list_for_linshi1[i][0].encode('UTF-8')
+        b=a.strip()
+        list_for_allname.append(b)
+
+
+    false='false'#未完成药单查询五个一组
+    global j
+    list_yaodanwwc=[]
+    list_news_lists=[]
+    cursor.execute('select * from yaodan where isok=%s',false)
+    yaodan_wwc=cursor.fetchall()
+    list_yaodan_wwc=list(yaodan_wwc)
+    for i in range(len(list_yaodanwwc)):
+        list_yaodanwwc[i]=[]
+    for i in range(len(list_yaodan_wwc)):
+        m_id=list_yaodan_wwc[i][0].encode('UTF-8')
+        mid1=m_id.strip()
+        m_name=list_yaodan_wwc[i][1].encode('UTF-8')
+        name1=m_name.strip()
+        num=list_yaodan_wwc[i][2]
+        docname=list_yaodan_wwc[i][3].encode('UTF-8')
+        docname1=docname.strip()
+        ill_id=list_yaodan_wwc[i][4].encode('UTF-8')
+        iid=ill_id.strip()
+        allpri=list_yaodan_wwc[i][5]
+        isok=list_yaodan_wwc[i][6].encode('UTF-8')
+        isok1=isok.strip()
+        list_news_lists.append(mid1)
+        list_news_lists.append(name1)
+        list_news_lists.append(num)
+        list_news_lists.append(docname1)
+        list_news_lists.append(iid)
+        list_news_lists.append(allpri)
+        list_news_lists.append(isok)
+        list_yaodanwwc.append(list_news_lists)
+        list_news_lists=[]
+        
+    global k
+    true='true'#已完成药单信息查询 五个一组
+    list_yaodanywc=[]
+
+    cursor.execute('select * from yaodan where isok=%s',true)
+    yaodan_ywc=cursor.fetchall()
+    list_yaodan_ywc=list(yaodan_ywc)
+    for i in range(len(list_yaodan_ywc)):
+        m_id=list_yaodan_ywc[i][0].encode('UTF-8')
+        mid1=m_id.strip()
+        m_name=list_yaodan_ywc[i][1].encode('UTF-8')
+        name1=m_name.strip()
+        num=list_yaodan_ywc[i][2]
+        docname=list_yaodan_ywc[i][3].encode('UTF-8')
+        docname1=docname.strip()
+        ill_id=list_yaodan_ywc[i][4].encode('UTF-8')
+        iid=ill_id.strip()
+        allpri=list_yaodan_ywc[i][5]
+        isok=list_yaodan_ywc[i][6].encode('UTF-8')
+        isok1=isok.strip()
+        list_news_lists.append(mid1)
+        list_news_lists.append(name1)
+        list_news_lists.append(num)
+        list_news_lists.append(docname1)
+        list_news_lists.append(iid)
+        list_news_lists.append(allpri)
+        list_news_lists.append(isok)
+        list_yaodanywc.append(list_news_lists)
+        list_news_lists=[]
+    if(len(list_yaodanwwc)%5==0):
+        pcount1=len(list_yaodanwwc)/5
+    else:
+        pcount1=len(list_yaodanwwc)/5+1
+
+    if(len(list_yaodanywc)%5==0):
+        pcount2=len(list_yaodanywc)/5
+    else:
+        pcount2=len(list_yaodanywc)/5+1
+    
+    global wwc_count
+    global ywc_count  
+    wwc_count=pcount1
+    ywc_count=pcount2
+
+    
+
+    
+    dq_wwc=j+1
+    dq_ywc=k+1
+    list_yaodanywcls1=[]
+    list_yaodanwwcls1=[]
+    list_yaodanywcls=[]
+    list_yaodanwwcls=[]
+    for i in range(5*j,(j+1)*5+1):
+        if(len(list_yaodanwwc)-1<i):
+            break;
+        list_yaodanwwcls1.append(list_yaodanwwc[i])
+    list_yaodanwwcls=copy.deepcopy(list_yaodanwwcls1)
+    list_yaodanwwcls1=[]
+    for i in range(5*k,(k+1)*5+1):
+        if(len(list_yaodanywc)-1<i):
+            break;
+        list_yaodanywcls1.append(list_yaodanywc[i])
+    list_yaodanywcls=copy.deepcopy(list_yaodanywcls1)
+    list_yaodanywcls1=[]
+
+
+
+    medicine_for_list={'ypxxwwc':list_yaodanwwcls,'ypxxywc':list_yaodanywcls,'selectvalue':list_for_allname,'ywccount':ywc_count,'wwccount':wwc_count,'dqwwc':dq_wwc,'dqywc':dq_ywc}
+    
+
+    return render_template('yaofang.html',**medicine_for_list)
+
+@app.route('/login_for_yaofang',methods=['POST'])#药房管理
+def login_for_yaofang1():
+    caozuo=request.form['gongneng']
+    global wwc_count
+    global ywc_count
+    global j
+    global k
+    if(caozuo=='1'):
+        if(j==0):
+            return redirect(url_for('login_for_yaofang'))
+        else:
+            j=j-1
+            return redirect(url_for('login_for_yaofang'))
+    elif(caozuo=='2'):
+        if(j>=(wwc_count-1)):
+            return redirect(url_for('login_for_yaofang'))
+        else:
+            j=j+1
+            return redirect(url_for('login_for_yaofang'))
+    elif(caozuo=='3'):
+        if(k==0):
+            return redirect(url_for('login_for_yaofang'))
+        else:
+            k=k-1
+            return redirect(url_for('login_for_yaofang'))
+    elif(caozuo=='4'):
+        if(k>=(ywc_count-1)):
+            return redirect(url_for('login_for_yaofang'))
+        else:
+            k=k+1
+            return redirect(url_for('login_for_yaofang'))
+    elif(caozuo=='5'):
+        ill=request.form['patient']
+        true='true'
+        cursor.execute('update yaodan set isok=%s where ill_id=%s',(true,ill))
+        conn.commit()
+        return redirect(url_for('login_for_yaofang'))
+
 
 
 @app.route('/wrong')#登录失败
