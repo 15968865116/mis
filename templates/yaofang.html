@@ -87,7 +87,7 @@
         
             <a>已完成药单病人编号：</a>
             <input name='patient'>
-            <button onclick="myFunc(5)">确认</button>
+            <button onclick="myFunc(5)" type="submit">确认</button>
         
     </div>
     <div class='quchuqueren'>
@@ -102,8 +102,10 @@
                     {%endfor%}
             </select><br>
             <input type='hidden' name='yaopinname' id='m'>
-            <a>数量：</a><input name='yaopinnum'>
-            <button onclick="myFunc(6)">确认</button>
+            <a>数量：</a><input name='yaopinnum'><br>
+            <a>取药日期：</a><input name='year'><a>年</a><input name='month'><a>月</a><input name='day'><a>日</a>
+            <button onclick="myFunc(6)" type="submit">确认</button>
+            <button type="submit" onclick="myFunc(7)">返回</button>
         
     </div>
 </div>
@@ -113,11 +115,7 @@
         {
             if(num==1)
             {
-                var obj = document.getElementById('mede'); //定位id
-                var index = obj.selectedIndex; // 选中索引
-                var text = obj.options[index].text; // 选中文本
-                var value = obj.options[index].value;
-                document.getElementById('m').value=text;
+                
                 document.getElementById('gongneng1').value=1;
                 
             }
@@ -139,7 +137,16 @@
             }
             else if(num==6)
             {
+                var obj = document.getElementById('mede'); //定位id
+                var index = obj.selectedIndex; // 选中索引
+                var text = obj.options[index].text; // 选中文本
+                var value = obj.options[index].value;
+                document.getElementById('m').value=text;
                 document.getElementById('gongneng1').value=6;
+            }
+            else if(num==7)
+            {
+                document.getElementById('gongneng1').value=7;
             }
         }
         

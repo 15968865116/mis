@@ -1,7 +1,8 @@
 <!doctype html>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <a>这里是查看药方页面</a>
-<table border="1">
+<div style="text-align: center">
+<table border="1" align="center">
     <tr>
       <th>药品名称</th>
       <th>药品编号</th>
@@ -13,11 +14,11 @@
     </tr>
     {% for i in ypxx%}
     <tr>
-      <th>{{i[0]}}</th>
-      <th>{{i[3]}}</th> 
       <th>{{i[1]}}</th>
-      <th>{{i[2]}}</th>          
-      <th>{{i[4]}}</th> 
+      <th>{{i[0]}}</th> 
+      <th>{{i[2]}}</th>
+      <th>{{i[4]}}</th>          
+      <th>{{i[3]}}</th> 
       <th>{{i[5]}}</th> 
       <th>{{i[6]}}</th> 
      
@@ -25,3 +26,37 @@
     
     {%endfor%}
   </table>
+  <a>共{{count}}页，当前{{dq}}页</a>
+  <form method="post">
+    <input type="hidden" id='gongneng1' name='gongneng'>
+    <button type="submit" onclick="myFunc(1)">上一页</button>
+    
+    <button type="submit" onclick="myFunc(2)">下一页</button>
+    <button type="submit" onclick="myFunc(3)">返回</button>
+  </form>
+  </div>
+
+  <script>
+      function myFunc(num)
+      {
+          if(num==1)
+          {
+              
+              document.getElementById('gongneng1').value=1;
+              
+          }
+          else if(num==2)
+          {
+              document.getElementById('gongneng1').value=2;
+          }
+          else if(num==3)
+          {
+              document.getElementById('gongneng1').value=3;
+          }
+         
+          
+      }
+      
+      
+      
+  </script>

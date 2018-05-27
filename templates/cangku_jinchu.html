@@ -1,0 +1,55 @@
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<a>仓库进出登记</a>
+<form method="post"><a>药品入库</a><br>
+<input name='gongneng' id='gongneng1' type='hidden'>
+<a>药品名称：</a><input name="ypmzj"><br>
+<a>药品数量：</a><input name="ypslj"><br>
+<a>入库日期：</a><input name='nianj'>年<input name='yuej'>月<input name='rij'>日 
+<button onclick="myFunc(1)">确认入库</button>
+<button onclick="myFunc(2)">返回</button><br>
+{{textj}}
+<a>药品入库</a><br>
+<a>药品名称：</a><input name="ypmzc"><br>
+<a>药品数量：</a><input name="ypslc"><br>
+<a>入库日期：</a><input name='nianc'>年<input name='yuec'>月<input name='ric'>日 <br>
+<button onclick="myFunc(3)">确认入库</button><br>
+<button onclick="myFunc(4)">返回</button><br>
+{{textc}}
+<a>新药对照：</a><br>
+<a>新药名称：</a><input name="xymc"><br>
+<a>新药编号：</a><input name="xyid"><br>
+<a>新药价格：</a><input name="xyjg"><br>
+<button onclick="myFunc(5)">确认新增</button><br>
+<button onclick="myFunc(6)">返回</button><br>
+</form>
+
+<script>
+        function myFunc(num)
+        {
+            if(num==1)
+            {
+                document.getElementById('gongneng1').value=1;
+            }
+            else if(num==2)
+            {
+                document.getElementById('gongneng1').value=2;
+            }
+            else if(num==3)
+            {
+                document.getElementById('gongneng1').value=3;
+            }
+            else if(num==4)
+            {
+                document.getElementById('gongneng1').value=4;
+            }
+            else if(num==5)
+            {
+                document.getElementById('gongneng1').value=5;
+            }
+            else if(num==6)
+            {
+                document.getElementById('gongneng1').value=6;
+            }
+            
+        }
+    </script>

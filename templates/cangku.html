@@ -1,2 +1,41 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <a>仓库</a>
+<form method="post">
+    <input type="hidden" id='gongneng1' name='gongneng'>
+    <button onclick="myFunc(1)">仓库进货情况</button>
+    <button onclick="myFunc(2)">仓库出药情况</button>
+    <button onclick="myFunc(3)">仓库库存查询</button>
+    <button onclick="myFunc(4)">药品进出库</button>
+    <button onclick="myFunc(5)">退出登录</button>
+</form>
+<script>
+    function myFunc(num)
+    {
+        if(num==1)
+        {
+            
+            document.getElementById('gongneng1').value=1;
+            
+        }
+        else if(num==2)
+        {
+            document.getElementById('gongneng1').value=2;
+        }
+        else if(num==3)
+        {
+            document.getElementById('gongneng1').value=3;
+        }
+        else if(num==4)
+        {
+            document.getElementById('gongneng1').value=4;
+        }
+        else if(num==5)
+        {
+            document.getElementById('gongneng1').value=5;
+        }
+        
+    }
+    
+    
+    
+</script>

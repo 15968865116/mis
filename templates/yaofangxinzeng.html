@@ -1,0 +1,35 @@
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<a>这里是商品入库</a>
+<form method="post">
+<input type="hidden" name="gongneng" id='gongneng1'>
+<a>药品名字：</a><input name="ypmz"><br>
+<a>药品编号：</a><input name="ypid"><br>
+<a>药品数量：</a><input name="ypsl"><br>
+<a>生产日期：</a><input name="nian"><a>年</a><input name="yue"><a>月</a><input name="ri"><a>日</a>
+<a>存放位置：</a><input name="cfwz"><br>
+<a>销售单价：</a><input name="xsdj"><br>
+<a>保质期：</a><input name="bzq"><br>
+<button type="submit" onclick="myFunc(1)">增加</button>
+<button type="submit" onclick="myFunc(2)">返回</button>
+</form>
+{{text}}
+<script>
+        function myFunc(num)
+        {
+            if(num==1)
+            {
+                
+                document.getElementById('gongneng1').value=1;
+                
+            }
+            else if(num==2)
+            {
+                document.getElementById('gongneng1').value=2;
+            }
+           
+            
+        }
+        
+        
+        
+    </script>

@@ -1,0 +1,82 @@
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<a>查询全部记录</a>
+<form method="post">
+        <div style="text-align: center">
+        <input type="hidden" name='gongneng' id='gongneng1'>
+        <a > 药品名称：</a><input name='ypmc'>
+        <button type="submit" onclick="myFunc(1)">查询</button>
+        <button type="submit" onclick="myFunc(2)">取消查询</button>
+        <button type="submit" onclick="myFunc(5)">返回</button>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <table border="1" align="center" >
+        <tr>
+        <th>药品名称</th>
+        <th>药品编号</th>
+        <th>药品数量</th>
+        <th>生产日期</th>         
+        <th>保质期</th>
+        <th>单价</th>
+        <th>存储位置</th>
+        </tr>
+        {% for i in ypzxx%}
+        <tr>
+        <th>{{i[1]}}</th>
+        <th>{{i[0]}}</th> 
+        <th>{{i[2]}}</th>
+        <th>{{i[4]}}</th>          
+        <th>{{i[5]}}</th> 
+        <th>{{i[6]}}</th> 
+        <th>{{i[3]}}</th> 
+        
+        </tr>
+        
+        {%endfor%}
+    </table>
+    <a>{{text}}</a><br>
+    <button onclick="myFunc(3)">上一页</button>
+    <a>共{{count}}页当前第{{dq_count}}页</a>
+    <button onclick="myFunc(4)">下一页</button>
+    </div>
+    </form>
+    
+    <script>
+            function myFunc(num)
+            {
+                if(num==1)
+                {
+                    
+                    document.getElementById('gongneng1').value=1;
+                    
+                }
+                else if(num==2)
+                {
+                    document.getElementById('gongneng1').value=2;
+                }
+                else if(num==3)
+                {
+                    document.getElementById('gongneng1').value=3;
+                }
+                else if(num==4)
+                {
+                    document.getElementById('gongneng1').value=4;
+                }
+                else if(num==5)
+                {
+                    document.getElementById('gongneng1').value=5;
+                }
+                
+                
+            }
+            
+            
+            
+        </script>

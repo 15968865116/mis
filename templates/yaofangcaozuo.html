@@ -1,10 +1,12 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<a>你好！{{}}</a>
+<a>你好！{{a}}</a>
 <form method="post">
     <input type="hidden" id='gongneng1' name='gongneng'>
     <button onclick="myFunc(1)">取药</button>
     <button onclick="myFunc(2)">查看库存</button>
-    <button onclick="myFunc(3)">取药记录</button>
+    <button onclick="myFunc(3)">新增药品</button>
+    <button onclick="myFunc(4)">取药记录</button>
+    <button onclick="myFunc(5)">退出</button>
 
 </form>
 
@@ -13,11 +15,7 @@
         {
             if(num==1)
             {
-                var obj = document.getElementById('mede'); //定位id
-                var index = obj.selectedIndex; // 选中索引
-                var text = obj.options[index].text; // 选中文本
-                var value = obj.options[index].value;
-                document.getElementById('m').value=text;
+                
                 document.getElementById('gongneng1').value=1;
                 
             }
@@ -28,6 +26,14 @@
             else if(num==3)
             {
                 document.getElementById('gongneng1').value=3;
+            }
+            else if(num==4)
+            {
+                document.getElementById('gongneng1').value=4;
+            }
+            else if(num==5)
+            {
+                document.getElementById('gongneng1').value=5;
             }
             
         }
