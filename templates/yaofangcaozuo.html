@@ -1,15 +1,56 @@
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<a>你好！{{a}}</a>
+<head>
+        <meta charset="utf-8" />
+        <title>仓库管理操作页面</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-metro.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="static/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+        <!-- END PAGE LEVEL STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        <style>
+           
+            .content {
+            background-color:#fff; 
+            width: 291px;
+            margin: 0 auto; 
+            margin-bottom: 0px;
+            margin-top: 200px;
+            padding: 30px;  
+            padding-top: 20px;  
+            padding-bottom: 30px;  
+            }
+
+        </style>
+ </head>
+ <div class="content" >
+<div style="text-align:center">
 <form method="post">
+    <h2>药房管理操作</h2>
     <input type="hidden" id='gongneng1' name='gongneng'>
-    <button onclick="myFunc(1)">取药</button>
-    <button onclick="myFunc(2)">查看库存</button>
-    <button onclick="myFunc(3)">新增药品</button>
-    <button onclick="myFunc(4)">取药记录</button>
-    <button onclick="myFunc(5)">退出</button>
-
+    <button onclick="myFunc(1)" class="btn info">取药</button><br><br>
+    <button onclick="myFunc(2)" class="btn info">查看库存</button><br><br>
+    <button onclick="myFunc(3)" class="btn info">新增药品</button><br><br>
+    <button onclick="myFunc(4)" class="btn info">取药记录</button><br><br>
+    <div style="text-align:right">
+    <button onclick="myFunc(5)" class="btn red">退出</button>
+    </div>
 </form>
-
+</div>
+</div>
+<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height:100%; width: 1920px; z-index: -999999; position: fixed;">
+        <img style="position: absolute; height:100%; width: 1920px;" src="static/assets/img/bg/2.jpg">
+</div> 
 <script>
         function myFunc(num)
         {

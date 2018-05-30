@@ -1,21 +1,63 @@
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<a>chuhuo查询</a>
+<head>
+        <meta charset="utf-8" />
+        <title>仓库管理操作页面</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-metro.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="static/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+        <!-- END PAGE LEVEL STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        <style>
+           
+            .content {
+            background-color:#fff; 
+            width: 80%;
+            margin: 0 auto; 
+            margin-bottom: 0px;
+            margin-top: 100px;
+            padding: 30px;  
+            padding-top: 20px;  
+            padding-bottom: 30px;  
+            }
+
+        </style>
+    </head>
 <form method="post">
+        <div class="content" >
 <div style="text-align:center">
+
         <input name='gongneng' id='gongneng1' type='hidden'>
+        <a>药品名称</a><input name='ypname'><button onclick="myFunc(6)">查询</button><br>
+
     <input name='nian'>年<input name='yue'>月<input name='ri'>日 <button onclick="myFunc(4)">查询</button><button onclick="myFunc(5)">取消查询</button>
 </div>
-<table border="1" align="center" >
+<table border="1" align="center" class="table table-bordered table-hover">
         <tr>
         <th>药品名称</th>
         <th>药品数量</th>
         <th>取药日期</th>
+        <th>取药位置</th>
+        <th>生产日期</th>
+        
         </tr>
         {% for i in qyxx%}
         <tr>
         <th>{{i[1]}}</th>
         <th>{{i[0]}}</th> 
-        <th>{{i[2]}}</th>       
+        <th>{{i[2]}}</th>
+        <th>{{i[3]}}</th> 
+        <th>{{i[4]}}</th>       
         </tr>   
         {%endfor%}
         
@@ -29,7 +71,11 @@
                 <button type="submit" onclick="myFunc(3)">返回</button>
         </div>
 
+</div>
 </form>
+<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height:100%; width: 1920px; z-index: -999999; position: fixed;">
+        <img style="position: absolute; height:100%; width: 1920px;" src="static/assets/img/bg/1.jpg">
+</div>  
 <script>
         function myFunc(num)
         {
@@ -52,6 +98,10 @@
             else if(num==5)
             {
                 document.getElementById('gongneng1').value=5;
+            }
+            else if(num==6)
+            {
+                document.getElementById('gongneng1').value=6;
             }
         }
     </script>

@@ -1,13 +1,58 @@
-<!doctype html>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<head>
+        <meta charset="utf-8" />
+        <title>医生页面</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-metro.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="static/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+        <!-- END PAGE LEVEL STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        <style>
+           
+            .content {
+            background-color:#fff; 
+            width: 291px;
+            margin: 0 auto; 
+            margin-bottom: 0px;
+            margin-top: 200px;
+            padding: 30px;  
+            padding-top: 20px;  
+            padding-bottom: 30px;  
+            }
 
-<a>你好，{{username}}医生</a>
+        </style>
+    </head>
+    <body>
+        <div class="content" >
+        <div style="text-align:center">
+        <h3>你好，{{username}}医生</h3>
+        </div>
+    
 <form method="post" url="/edit">
     <input id='gongneng1' type='hidden' name='gongneng'>
-    <button type="submit" class="btn info"  onclick="myFunc(1)">开药方</button>
-    <button type="submit" class="btn info" onclick="myFunc(2)" >查看已开药方</button>
-    <button type="submit" class="btn info" onclick="myFunc(3)" >退出</button>
+    <div style="text-align:center">
+        <button type="submit" class="btn blue"  onclick="myFunc(1)">开药方</button><br><br>
+        <button type="submit" class="btn blue" onclick="myFunc(2)" >查看已开药方</button><br>
+    </div>
+    <div style="text-align:right">
+    <button type="submit" class="btn red" onclick="myFunc(3)" >退出</button>
+    </div>
 </form>
+</div>
+<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height:100%; width: 1920px; z-index: -999999; position: fixed;"><div></div>
+<img style="position: absolute; height:100%; width: 1920px;" src="static/assets/img/bg/3.jpg">
+</div>  
 <script>
     function myFunc(num)
     {
@@ -25,3 +70,5 @@
         }
     }
 </script>
+
+    </body>

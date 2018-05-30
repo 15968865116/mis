@@ -1,12 +1,47 @@
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<a>查询全部记录</a>
+<head>
+        <meta charset="utf-8" />
+        <title>仓库管理操作页面</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-metro.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="static/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+        <!-- END PAGE LEVEL STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        <style>
+           
+            .content {
+            background-color:#fff; 
+            width: 40%;
+            margin: 0 auto; 
+            margin-bottom: 0px;
+            margin-top: 20px;
+            padding: 30px;  
+            padding-top: 20px;  
+            padding-bottom: 30px;  
+            }
+
+
+        </style>
+    </head>
+    <div class="content" >
 <form method="post">
         <div style="text-align: center">
         <input type="hidden" name='gongneng' id='gongneng1'>
         <a > 药品名称：</a><input name='ypmc'>
-        <button type="submit" onclick="myFunc(1)">查询</button>
-        <button type="submit" onclick="myFunc(2)">取消查询</button>
-        <button type="submit" onclick="myFunc(5)">返回</button>
+        <button type="submit" onclick="myFunc(1)" class="btn green">查询</button>
+        <button type="submit" onclick="myFunc(2)" class="btn red">取消查询</button>
+        <button type="submit" onclick="myFunc(5)" class="btn red">返回</button>
     
     
     
@@ -17,17 +52,17 @@
     
     
     
-    <table border="1" align="center" >
+    <table border="1" align="center" class="table table-bordered table-hover">
         <tr>
-        <th>药品名称</th>
         <th>药品编号</th>
+        <th>药品名称</th>
         <th>药品数量</th>
         <th>生产日期</th>         
-        <th>保质期</th>
+        <th>保质期(月)</th>
         <th>单价</th>
         <th>存储位置</th>
         </tr>
-        {% for i in ypzxx%}
+        {% for i in ypxx%}
         <tr>
         <th>{{i[1]}}</th>
         <th>{{i[0]}}</th> 
@@ -43,10 +78,14 @@
     </table>
     <a>{{text}}</a><br>
     <button onclick="myFunc(3)">上一页</button>
-    <a>共{{count}}页当前第{{dq_count}}页</a>
+    <a>共{{count}}页当前第{{dq}}页</a>
     <button onclick="myFunc(4)">下一页</button>
     </div>
     </form>
+    </div>
+    <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height:100%; width: 1920px; z-index: -999999; position: fixed;">
+            <img style="position: absolute; height:100%; width: 1920px;" src="static/assets/img/bg/1.jpg">
+    </div> 
     
     <script>
             function myFunc(num)

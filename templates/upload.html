@@ -1,11 +1,102 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title>登录页面</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+	<link href="static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="static/assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+	<link href="static/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="static/assets/css/style-metro.css" rel="stylesheet" type="text/css"/>
+	<link href="static/assets/css/style.css" rel="stylesheet" type="text/css"/>
+	<link href="static/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+	<link href="static/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+	<link href="static/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="static/assets/plugins/select2/select2_metro.css" />
+	<!-- END GLOBAL MANDATORY STYLES -->
+	<!-- BEGIN PAGE LEVEL STYLES -->
+	<link href="assets/css/pages/login.css" rel="stylesheet" type="text/css"/>
+	<!-- END PAGE LEVEL STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style>
+        .content {
+            background-color:#fff; 
+            width: 291px;
+            margin: 0 auto; 
+            margin-bottom: 0px;
+            margin-top: 200px;
+            padding: 30px;  
+            padding-top: 20px;  
+            padding-bottom: 30px;  
+            }
 
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<form method="post" url="/edit">
-    <a>用户</a><input type="text" id="user" name="user1" class="span11 m-wrap"><br>
-    <a>密码</a><input type="text" id="pwd" name="pwd1">
-   <br>
-    <button type="submit" class="btn info" >登录</button>
-    
-</form>
-{{text}}
+    </style>
+</head>
+<!-- END HEAD -->
+<body >
+
+    <div class="content" >
+    <form class="form-vertical login-form" method="post">
+			<div style="text-align:center">
+			<h3 class="form-title" ><b>药品管理信息系统</b></h3>
+			</div>
+            <h3 class="form-title">用户登录</h3>
+            <div class="input-icon left">
+                    <i class="icon-user"></i>
+                    <input class="m-wrap placeholder-no-fix" type="text" id="user" name="user1"/>
+            </div>
+        
+            <div class="input-icon left">
+                    <i class="icon-lock"></i>
+                    <input class="m-wrap placeholder-no-fix" type="password" id="pwd" name="pwd1"/>
+            </div>
+            {{text}}
+
+        
+	<br>
+	
+        <button type="submit" class="btn green" >登录</button>
+	
+    </form>
+
+
+</div>
+
+<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height:100%; width: 1920px; z-index: -999999; position: fixed;"><div></div>
+<img style="position: absolute; height:100%; width: 1920px;" src="static/assets/img/bg/3.jpg">
+</div>   
+
+
+
+
+	<!-- END COPYRIGHT -->
+	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+	<!-- BEGIN CORE PLUGINS -->   <script src="static/assets/plugins/jquery-1.10.1.min.js" type="text/javascript"></script>
+
+	<!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+   
+	<script src="static/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="static/assets/plugins/jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="static/assets/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="static/assets/plugins/select2/select2.min.js"></script>
+
+	<script src="static/assets/scripts/app.js" type="text/javascript"></script>
+	<script src="static/assets/scripts/login-soft.js" type="text/javascript"></script>   
+	<script>
+		jQuery(document).ready(function() {     
+		  App.init();
+		  Login.init();
+		
+		 
+		
+		});
+	</script>
+</body>
+
 

@@ -1,18 +1,58 @@
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<a>这里是商品入库</a>
+<head>
+        <meta charset="utf-8" />
+        <title>药房新增页面</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-metro.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="static/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+        <!-- END PAGE LEVEL STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        <style>
+           
+            .content {
+            background-color:#fff; 
+            width: 40%;
+            margin: 0 auto; 
+            margin-bottom: 0px;
+            margin-top: 100px;
+            padding: 30px;  
+            padding-top: 20px;  
+            padding-bottom: 30px;  
+            }
+
+
+        </style>
+    </head>
 <form method="post">
+<div class="content" >
 <input type="hidden" name="gongneng" id='gongneng1'>
-<a>药品名字：</a><input name="ypmz"><br>
-<a>药品编号：</a><input name="ypid"><br>
-<a>药品数量：</a><input name="ypsl"><br>
-<a>生产日期：</a><input name="nian"><a>年</a><input name="yue"><a>月</a><input name="ri"><a>日</a>
-<a>存放位置：</a><input name="cfwz"><br>
-<a>销售单价：</a><input name="xsdj"><br>
-<a>保质期：</a><input name="bzq"><br>
-<button type="submit" onclick="myFunc(1)">增加</button>
-<button type="submit" onclick="myFunc(2)">返回</button>
-</form>
+<h2>新增药品：</h2>
+<a>药品名字：</a><input name="ypmz"><br><br>
+<a>药品编号：</a><input name="ypid"><br><br>
+<a>药品数量：</a><input name="ypsl"><br><br>
+<a>生产日期：</a><input name="nian"><a>年</a><input name="yue"><a>月</a><input name="ri"><a>日</a><br><br>
+<a>存放位置：</a><input name="cfwz"><br><br>
+<a>销售单价：</a><input name="xsdj"><br><br>
+<a>保质期：</a><input name="bzq"><br><br>
+<button type="submit" onclick="myFunc(1)" class="btn green">增加</button>
+<button type="submit" onclick="myFunc(2)" class="btn red">返回</button>
 {{text}}
+</div>
+</form>
+<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height:100%; width: 1920px; z-index: -999999; position: fixed;">
+        <img style="position: absolute; height:100%; width: 1920px;" src="static/assets/img/bg/2.jpg">
+</div> 
 <script>
         function myFunc(num)
         {

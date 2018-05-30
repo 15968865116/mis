@@ -1,18 +1,49 @@
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<style>
-    .yaodan{float: left;width: 50%;background-color: #CEFC00;height: 1000px}
+<head>
+        <meta charset="utf-8" />
+        <title>仓库管理操作页面</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-metro.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="static/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+        <!-- END PAGE LEVEL STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        <style>
+           
+            .content {
+            background-color:#fff; 
+            width: 80%;
+            margin: 0 auto; 
+            margin-bottom: 0px;
+            margin-top: 20px;
+            padding: 30px;  
+            padding-top: 20px;  
+            padding-bottom: 30px;  
+            }
+ 
     
-    .quchu{float: left;width: 50%;background-color: #4B27EB;height: 1000px}
-    .weiyaodan{width: 100%;background-color: #00FC0D;height: 500px}
-    .yiyaodan{width: 100%;background-color: #CAE2CC;height: 500px}
-    .queren{width: 100%;background-color: #B7F50E;height: 500px}
-    .quchuqueren{width: 100%;background-color: #E2CAE1;height: 500px}
-</style>
+
+
+
+        </style>
+    </head>
+
 
 <form method="post">
-<div class='yaodan'>
-    <div class='weiyaodan'><a>未完成药单</a>
-        <table border="1" align="center">
+
+        <div class="content" >
+        <a>未完成药单</a>
+        <table border="1" align="center" class="table table-bordered table-hover">
             <tr>
             <th>药品名称</th>
             <th>药品编号</th>
@@ -39,15 +70,16 @@
         
             <div style="text-align: center">
                 <input name='gongneng' id='gongneng1' type='hidden'>
-                <button type="submit" onclick="myFunc(1)">上一页</button>
+                <button type="submit" onclick="myFunc(1)" class="btn blue">上一页</button>
                 <a>总共{{wwccount}}页，当前第{{dqwwc}}页</a>
-                <button type="submit" onclick="myFunc(2)">下一页</button>
+                <button type="submit" onclick="myFunc(2)" class="btn blue">下一页</button>
             </div>
         
-    </div>
-    <div class='yiyaodan'>
+  
+</div>
+<div class="content" >
         <a>已完成药单</a>
-        <table border="1" align="center" >
+        <table border="1" align="center" class="table table-bordered table-hover">
                 <tr>
                 <th>药品名称</th>
                 <th>药品编号</th>
@@ -73,26 +105,24 @@
         </table>
         
             <div style="text-align: center">                
-                <button type="submit" onclick="myFunc(3)">上一页</button>
+                <button type="submit" onclick="myFunc(3)" class="btn blue">上一页</button>
                 <a>总共{{ywccount}}页，当前第{{dqywc}}页</a>
-                <button type="submit" onclick="myFunc(4)">下一页</button>
+                <button type="submit" onclick="myFunc(4)" class="btn blue">下一页</button>
             </div>
-          
-    </div>
-</div>
+ </div>         
 
-<div class='quchu'>
-    <div class="queren">
-        <a>药品取出</a>
+
+
+ <div class="content" >
+ 
         
-            <a>已完成药单病人编号：</a>
+            <h2>已完成药单病人编号：</h2><br>
             <input name='patient'>
-            <button onclick="myFunc(5)" type="submit">确认</button>
-        
-    </div>
-    <div class='quchuqueren'>
+            <button onclick="myFunc(5)" type="submit" class="btn green">确认</button>
+
+
          
-            <a>取出药品清单</a><br>
+            <h2>取出药品清单</h2><br>
             <a>药品名称</a>
             <select name='medicinename1' id='mede'>
                     {%for j in selectvalue%}
@@ -104,12 +134,15 @@
             <input type='hidden' name='yaopinname' id='m'>
             <a>数量：</a><input name='yaopinnum'><br>
             <a>取药日期：</a><input name='year'><a>年</a><input name='month'><a>月</a><input name='day'><a>日</a>
-            <button onclick="myFunc(6)" type="submit">确认</button>
-            <button type="submit" onclick="myFunc(7)">返回</button>
+            <button onclick="myFunc(6)" type="submit" class="btn green">确认</button>
+            <button type="submit" onclick="myFunc(7)" class="btn red">返回</button>
         
-    </div>
 </div>
+
 </form>
+<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height:100%; width: 1920px; z-index: -999999; position: fixed;">
+        <img style="position: absolute; height:100%; width: 1920px;" src="static/assets/img/bg/1.jpg">
+</div> 
 <script>
         function myFunc(num)
         {

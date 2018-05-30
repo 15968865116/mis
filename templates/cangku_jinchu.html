@@ -1,27 +1,77 @@
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<a>仓库进出登记</a>
-<form method="post"><a>药品入库</a><br>
+<head>
+        <meta charset="utf-8" />
+        <title>仓库管理操作页面</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-metro.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="static/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="static/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+        <!-- END PAGE LEVEL STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        <style>
+           
+            .content {
+            background-color:#fff; 
+            width: 40%;
+            margin: 0 auto; 
+            margin-bottom: 0px;
+            margin-top: 20px;
+            padding: 30px;  
+            padding-top: 20px;  
+            padding-bottom: 30px;  
+            }
+
+
+        </style>
+    </head>
+
+<form method="post">
+<div class="content" >
 <input name='gongneng' id='gongneng1' type='hidden'>
-<a>药品名称：</a><input name="ypmzj"><br>
-<a>药品数量：</a><input name="ypslj"><br>
-<a>入库日期：</a><input name='nianj'>年<input name='yuej'>月<input name='rij'>日 
-<button onclick="myFunc(1)">确认入库</button>
-<button onclick="myFunc(2)">返回</button><br>
+<h2>药品入库</h2>
+<a>药品名称：</a><input name="ypmzj"><br><br>
+<a>药品数量：</a><input name="ypslj"><br><br>
+<a>生产日期：</a><input name='niansc'>年<input name='yuesc'>月<input name='risc'>日<br><br>
+<a>药品保质期：</a><input name="bzq"><br><br>
+<a>存放位置：</a><input name="cfwz"><br><br>
+<a>入库日期：</a><input name='nianj'>年<input name='yuej'>月<input name='rij'>日 <br><br>
+<button onclick="myFunc(1)" class="btn blue">确认入库</button>
+<button onclick="myFunc(2)" class="btn red">返回</button><br>
 {{textj}}
-<a>药品入库</a><br>
-<a>药品名称：</a><input name="ypmzc"><br>
-<a>药品数量：</a><input name="ypslc"><br>
-<a>入库日期：</a><input name='nianc'>年<input name='yuec'>月<input name='ric'>日 <br>
-<button onclick="myFunc(3)">确认入库</button><br>
-<button onclick="myFunc(4)">返回</button><br>
-{{textc}}
-<a>新药对照：</a><br>
-<a>新药名称：</a><input name="xymc"><br>
-<a>新药编号：</a><input name="xyid"><br>
-<a>新药价格：</a><input name="xyjg"><br>
-<button onclick="myFunc(5)">确认新增</button><br>
-<button onclick="myFunc(6)">返回</button><br>
+</div>
+<div class="content" >
+<h2>药品出库</h2>
+<a>药品名称：</a><input name="ypmzc"><br><br>
+<a>药品数量：</a><input name="ypslc"><br><br>
+<a>出库日期：</a><input name='nianc'>年<input name='yuec'>月<input name='ric'>日 <br><br>
+<a>出药位置：</a><input name="cfwzc"><br><br>
+<a>生产日期：</a><input name='nianscc'>年<input name='yuescc'>月<input name='riscc'>日<br><br>
+<button onclick="myFunc(3)" class="btn red">确认出库</button>
+<button onclick="myFunc(4)" class="btn red">返回</button><br>
+{{textc}}</div>
+<div class="content" >
+<h2>新药对照</h2>
+<a>新药名称：</a><input name="xymc"><br><br>
+<a>新药编号：</a><input name="xyid"><br><br>
+<a>新药价格：</a><input name="xyjg"><br><br>
+<button onclick="myFunc(5)" class="btn blue">确认新增</button>
+<button onclick="myFunc(6)" class="btn red">返回</button><br>
+{{textdz}}
+</div>
 </form>
+<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height:100%; width: 1920px; z-index: -999999; position: fixed;">
+        <img style="position: absolute; height:100%; width: 1920px;" src="static/assets/img/bg/1.jpg">
+</div> 
 
 <script>
         function myFunc(num)
