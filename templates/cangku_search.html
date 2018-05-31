@@ -30,7 +30,7 @@
             padding-top: 20px;  
             padding-bottom: 30px;  
             }
-
+           
 
         </style>
     </head>
@@ -38,10 +38,18 @@
 <form method="post">
         <div style="text-align: center">
         <input type="hidden" name='gongneng' id='gongneng1'>
-        <a > 药品名称：</a><input name='ypmc'>
+        <h2>查询数据</h2><a > 药品名称：</a><input name='ypmc'>
         <button type="submit" onclick="myFunc(1)" class="btn green">查询</button>
         <button type="submit" onclick="myFunc(2)" class="btn red">取消查询</button>
-        <button type="submit" onclick="myFunc(5)" class="btn red">返回</button>
+        <button type="submit" onclick="myFunc(5)" class="btn red">返回</button><br><br>
+        <h2>删除数据</h2>
+        <a>药品名称：</a><input name="ypmcsc"><br><br>
+        <a>存储位置：</a><input name="ypwzsc"><br><br>
+        <a>生产日期：</a><input name="nian"><a>年</a><input name="yue"><a>月</a><input name="ri"><a>日</a><br><br>
+        {{textsc}}<br>
+        <button type="submit" onclick="myFunc(6)" class="btn red">删除数据</button><br>
+        
+
     
     
     
@@ -111,6 +119,10 @@
                 else if(num==5)
                 {
                     document.getElementById('gongneng1').value=5;
+                }
+                else if(num==6)
+                {
+                    document.getElementById('gongneng1').value=6;
                 }
                 
                 

@@ -67,6 +67,9 @@ text_for_cangku_search=''
 text_for_cangku_jinhuo=''
 text_for_cangku_chuhuo=''
 text_for_duizhao=''
+text_for_cangku_delete=''
+text_for_yaofang_delete=''
+
 
 
 
@@ -436,6 +439,7 @@ def cangku_jinhuo1():
         text_for_cangku_jinhuo=''
         list_for_cangku_jinhuo=[]
         cangku_page_jinhuo=0
+        control_for_ckjinhuo=0
 
         return redirect(url_for('login_for_cangku'))
     elif(caozuo=='4'):
@@ -443,6 +447,7 @@ def cangku_jinhuo1():
         nian=request.form['nian']
         yue=request.form['yue']
         ri=request.form['ri']
+        list_for_cangku_jinhuo=[]
         if(nian!='' and yue!='' and ri!=''):
             date=nian+'-'+yue+'-'+ri
             cursor.execute('select * from jinhuo where jhdate=%s',date)
@@ -497,6 +502,7 @@ def cangku_jinhuo1():
         list_for_cangku_jinhuo=[]
         return redirect(url_for('cangku_jinhuo'))
     elif(caozuo=='6'):
+        list_for_cangku_jinhuo=[]
         control_for_ckjinhuo=1
         ypname=request.form['ypname']
         if(ypname!=''):
@@ -757,6 +763,7 @@ def cangku_search():
     global control_for_cksearch
     global pick_for_cangku_all
     global list_for_cangku_select
+    global text_for_cangku_delete
     if(control_for_cksearch==0):
         cursor.execute('select * from cangkukucun')
         cangkuyp=cursor.fetchall()
@@ -800,7 +807,7 @@ def cangku_search():
 
         page_dq=cangku_page_search+1
         
-        mes={'ypxx':ls2,'dq':page_dq,'count':cangku_count_search,'text':text_for_cangku_search}
+        mes={'ypxx':ls2,'dq':page_dq,'count':cangku_count_search,'text':text_for_cangku_search,'textsc':text_for_cangku_delete}
         
         return render_template('cangku_search.html',**mes)
     elif(control_for_cksearch==1):
@@ -825,14 +832,14 @@ def cangku_search():
             page_dq=cangku_page_search+1
 
 
-            mes={'ypxx':ls2,'dq':page_dq,'count':cangku_count_search,'text':text_for_cangku_search}
+            mes={'ypxx':ls2,'dq':page_dq,'count':cangku_count_search,'text':text_for_cangku_search,'textsc':text_for_cangku_delete}
             return render_template('cangku_search.html',**mes)
         else:
 
             
             page_dq1=1
             cangkuc=1
-            mes={'ypxx':list_for_cangku_select,'dq':page_dq1,'count':cangkuc,'text':text_for_cangku_search}
+            mes={'ypxx':list_for_cangku_select,'dq':page_dq1,'count':cangkuc,'text':text_for_cangku_search,'textsc':text_for_cangku_delete}
             return render_template('cangku_search.html',**mes)
 
 @app.route('/cangku_search',methods=['POST'])#仓库全部查询
@@ -844,6 +851,8 @@ def cangku_search1():
     global control_for_cksearch
     global pick_for_cangku_all
     global list_for_cangku_select
+    global text_for_cangku_delete
+
 
     if(caozuo=='1'):
         control_for_cksearch=1
@@ -929,8 +938,34 @@ def cangku_search1():
         list_for_cangku_select=[]
         text_for_cangku_search=''
         cangku_page_search=0
+        text_for_cangku_delete=''
         #返回
         return redirect(url_for('login_for_cangku'))
+
+    elif(caozuo=='6'):
+        m_name=request.form['ypmcsc']
+        loc=request.form['ypwzsc']
+        nian=request.form['nian']
+        yue=request.form['yue']
+        ri=request.form['ri']
+        if(loc!='' and m_name!='' and nian!='' and yue!='' and ri!=''):
+            date=nian+'-'+yue+'-'+ri
+            cursor.execute('select * from cangkukucun where m_name=%s and loc=%s and shengchanriqi=%s',(m_name,loc,date))
+            for_search=cursor.fetchone()
+            if(for_search!=None):
+                cursor.execute('delete from cangkukucun where m_name=%s and loc=%s and shengchanriqi=%s',(m_name,loc,date))
+                conn.commit()
+                text_for_cangku_delete='删除成功'
+                return redirect(url_for('cangku_search'))
+            else:
+                text_for_cangku_delete='仓库无此记录，删除失败'
+                return redirect(url_for('cangku_search'))
+
+        else:
+            text_for_cangku_delete='有输入为空，删除失败'
+            return redirect(url_for('cangku_search'))
+
+
 
 @app.route('/cangku_jinchu',methods=['GET'])#仓库进出登记
 def cangku_jinchu():
@@ -1099,6 +1134,8 @@ def chakankucunyf():
     
     global control
     global text
+    global text_for_yaofang_delete
+    global list_for_chaxun
     if(control==0):
         list_kucun=[]
         list_news_kucun=[]
@@ -1150,11 +1187,18 @@ def chakankucunyf():
 
 
 
-        medicine_for_list={'ypzxx':list_ls,'count':allcount,'dq_count':dq_wwc,'text':text}
+        medicine_for_list={'ypzxx':list_ls,'count':allcount,'dq_count':dq_wwc,'text':text,'textsc':text_for_yaofang_delete}
         return render_template('yfkucun.html',**medicine_for_list)
     elif(control==1):
+        if(len(list_for_chaxun)%15==0):
+            pcount1=len(list_for_chaxun)/15
+        else:
+            pcount1=len(list_for_chaxun)/15+1
+
+        allcount=pcount1
         dq_wwc=yaofangdq+1
-        medicine_for_list={'ypzxx':list_for_chaxun,'count':allcount,'dq_count':dq_wwc,'text':text}
+
+        medicine_for_list={'ypzxx':list_for_chaxun,'count':allcount,'dq_count':dq_wwc,'text':text,'textsc':text_for_yaofang_delete}
         return render_template('yfkucun.html',**medicine_for_list)
 
 @app.route('/chakankucunyf',methods=['POST'])
@@ -1164,14 +1208,17 @@ def chakankuyf1():
     global control
     global yaofangdq
     global allcount
+    global text_for_yaofang_delete
     list_ysls=[]
     caozuo=request.form['gongneng']
     m_name=request.form['ypmc']
     
     if(caozuo=='1'):
         if(m_name==''):
+            text='输入药品为空'
             return redirect(url_for('chakankucunyf'))
         else:
+
             control=1
             lu=cursor.execute('select * from yaofangkucun where m_name=%s',m_name)
             xz=cursor.fetchone()
@@ -1185,33 +1232,36 @@ def chakankuyf1():
                 return redirect(url_for('chakankucunyf'))
                     
             else:
-                list_xz=list(xz)
+                lu=cursor.execute('select * from yaofangkucun where m_name=%s',m_name)
+                xz1=cursor.fetchall()
 
-                m_id=list_xz[1].encode('UTF-8')
-                mid1=m_id.strip()
-                m_name=list_xz[0].encode('UTF-8')
-                name1=m_name.strip()
-                num=list_xz[2]
-                loc=list_xz[3].encode('UTF-8')
-                loc1=loc.strip()
-                scdate=list_xz[4]
-                bzq=list_xz[5]
-                price=list_xz[6]
+                list_xz=list(xz1)
+                for i in range(len(list_xz)):
 
-                list_ysls.append(mid1)
-                list_ysls.append(name1)
-                list_ysls.append(num)
-                list_ysls.append(loc1)
-                list_ysls.append(scdate)
-                list_ysls.append(bzq)
-                list_ysls.append(price)
+                    m_id=list_xz[i][1].encode('UTF-8')
+                    mid1=m_id.strip()
+                    m_name=list_xz[i][0].encode('UTF-8')
+                    name1=m_name.strip()
+                    num=list_xz[i][2]
+                    loc=list_xz[i][3].encode('UTF-8')
+                    loc1=loc.strip()
+                    scdate=list_xz[i][4]
+                    bzq=list_xz[i][5]
+                    price=list_xz[i][6]
 
-                list_for_chaxun.append(list_ysls)
-                list_ysls=[]
+                    list_ysls.append(mid1)
+                    list_ysls.append(name1)
+                    list_ysls.append(num)
+                    list_ysls.append(loc1)
+                    list_ysls.append(scdate)
+                    list_ysls.append(bzq)
+                    list_ysls.append(price)
+
+                    list_for_chaxun.append(list_ysls)
+                    list_ysls=[]
                     
                     
                 text=''
-                allcount=1
                 yaofangdq=0
                 return redirect(url_for('chakankucunyf'))
                 
@@ -1233,7 +1283,36 @@ def chakankuyf1():
             yaofangdq=yaofangdq+1
             return redirect(url_for('chakankucunyf'))
     elif(caozuo=='5'):
+        text_for_yaofang_delete=''
+        text=''
+        list_for_chaxun=[]
+        yaofangdq=0
+        control=0
+
         return redirect(url_for('yaofangmanager'))
+
+    elif(caozuo=='6'):
+        m_name=request.form['ypmcsc']
+        loc=request.form['ypwzsc']
+        nian=request.form['nian']
+        yue=request.form['yue']
+        ri=request.form['ri']
+        if(loc!='' and m_name!='' and nian!='' and yue!='' and ri!=''):
+            date=nian+'-'+yue+'-'+ri
+            cursor.execute('select * from yaofangkucun where m_name=%s and loc=%s and shengchanriqi=%s',(m_name,loc,date))
+            for_search=cursor.fetchone()
+            if(for_search!=None):
+                cursor.execute('delete from yaofangkucun where m_name=%s and loc=%s and shengchanriqi=%s',(m_name,loc,date))
+                conn.commit()
+                text_for_yaofang_delete='删除成功'
+                return redirect(url_for('chakankucunyf'))
+            else:
+                text_for_yaofang_delete='药房无此记录，删除失败'
+                return redirect(url_for('chakankucunyf'))
+
+        else:
+            text_for_yaofang_delete='有输入为空，删除失败'
+            return redirect(url_for('chakankucunyf'))
 
 
 @app.route('/yaofangin',methods=['GET'])
@@ -1261,10 +1340,10 @@ def yaofangin1():
         price1=request.form['xsdj']
         bzq1=request.form['bzq']
         
-        if(m_name!='' and m_id!='' and num!='' and year!='' and month!='' and day!='' and price1!='' and bzq!='' and loc!='' ):
+        if(m_name!='' and m_id!='' and num!='' and year!='' and month!='' and day!='' and price1!='' and bzq1!='' and loc!='' ):
             price=float(price1)
             bzq=int(bzq1)
-            cursor.execute('select * from yaofangkucun where m_name=%s',m_name)
+            cursor.execute('select * from yaofangkucun where m_name=%s and loc=%s and shengchanriqi=%s',(m_name,loc,scdate))
             dd=cursor.fetchone()
             if(dd==None):
                 cursor.execute('insert into yaofangkucun values(%s,%s,%s,%s,%s,%s,%s)',(m_name,m_id,num,loc,scdate,bzq,price))
@@ -1275,7 +1354,7 @@ def yaofangin1():
                 listdd=list(dd)
                 numfromlist=listdd[2]
                 newnum=numfromlist+int(num)
-                cursor.execute('update yaofangkucun set num=%s',newnum)
+                cursor.execute('update yaofangkucun set num=%s where m_name=%s and loc=%s and shengchanriqi=%s',(newnum,m_name,loc,scdate))
                 conn.commit()
                 text2="录入成功"
                 return redirect(url_for('yaofangin'))
@@ -1579,18 +1658,21 @@ def login_for_yaofang1():
         year=request.form['year']
         month=request.form['month']
         day=request.form['day']
-        date=year+'-'+month+'-'+day
-        cursor.execute('insert into getmedicinerecord values(%s,%s,%s)',(m_name,num,date))
-        conn.commit()
-        cursor.execute('select * from yaofangkucun where m_name=%s',m_name)
-        xxz=cursor.fetchone()
-        list_xxz=[]
-        list_xxz=list(xxz)
-        num_yl=list_xxz[2]
-        num_hl=num_yl-int(num)
-        cursor.execute('update yaofangkucun set num=%s where m_name=%s',(num_hl,m_name))
-        conn.commit()
-        return redirect(url_for('login_for_yaofang'))
+        if(m_name!='' and num!='' and year!='' and month!='' and day!='' ):
+            date=year+'-'+month+'-'+day
+            cursor.execute('insert into getmedicinerecord values(%s,%s,%s)',(m_name,num,date))
+            conn.commit()
+            cursor.execute('select * from yaofangkucun where m_name=%s',m_name)
+            xxz=cursor.fetchone()
+            list_xxz=[]
+            list_xxz=list(xxz)
+            num_yl=list_xxz[2]
+            num_hl=num_yl-int(num)
+            cursor.execute('update yaofangkucun set num=%s where m_name=%s',(num_hl,m_name))
+            conn.commit()
+            return redirect(url_for('login_for_yaofang'))
+        else:
+            return redirect(url_for('login_for_yaofang'))
     elif(caozuo=='7'):
         return redirect(url_for('yaofangmanager'))
 
