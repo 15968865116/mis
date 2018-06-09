@@ -38,9 +38,9 @@
 <div style="text-align:center">
 
         <input name='gongneng' id='gongneng1' type='hidden'>
-        <a>药品名称</a><input name='ypname'><button onclick="myFunc(6)">查询</button><br>
+        <a>药品名称</a><input name='ypname' size="10"><button onclick="myFunc(6)" class="btn green">查询</button><br><br>
 
-    <input name='nian'>年<input name='yue'>月<input name='ri'>日 <button onclick="myFunc(4)">查询</button><button onclick="myFunc(5)">取消查询</button>
+    <input name='nian' size="4">年<input name='yue' size="2">月<input name='ri' size="2">日 <button onclick="myFunc(4)" class="btn green">查询</button><button onclick="myFunc(5)" class="btn red">取消查询</button><br>
 </div>
 <table border="1" align="center" class="table table-bordered table-hover">
         <tr>
@@ -65,10 +65,10 @@
 
         <div style="text-align: center">  
             {{text}}<br>              
-                <button type="submit" onclick="myFunc(1)">上一页</button>
+                <button type="submit" onclick="myFunc(1)" class="btn blue">上一页</button>
                 <a>总共{{count}}页，当前第{{dq}}页</a>
-                <button type="submit" onclick="myFunc(2)">下一页</button>
-                <button type="submit" onclick="myFunc(3)">返回</button>
+                <button type="submit" onclick="myFunc(2)" class="btn blue">下一页</button>
+                <button type="submit" onclick="myFunc(3)" class="btn red">返回</button>
         </div>
 
 </div>

@@ -50,11 +50,11 @@
     <h2>删除数据</h2>
     <a>药品名称：</a><input name="ypmcsc"><br><br>
     <a>存储位置：</a><input name="ypwzsc"><br><br>
-    <a>生产日期：</a><input name="nian"><a>年</a><input name="yue"><a>月</a><input name="ri"><a>日</a><br><br>
-    {{textsc}}<br>
+    <a>生产日期：</a><input name="nian" size="4"><a>年</a><input name="yue" size="2"><a>月</a><input name="ri" size="2"><a>日</a><br>
+    
     <button type="submit" onclick="myFunc(6)" class="btn red">删除数据</button><br>
 
-
+{{textsc}}<br>
 
 
 
@@ -88,9 +88,9 @@
     {%endfor%}
 </table>
 <a>{{text}}</a><br>
-<button onclick="myFunc(3)">上一页</button>
+<button onclick="myFunc(3)" class="btn blue">上一页</button>
 <a>共{{count}}页当前第{{dq_count}}页</a>
-<button onclick="myFunc(4)">下一页</button>
+<button onclick="myFunc(4)" class="btn blue">下一页</button>
 </div>
 </div>
 </form>

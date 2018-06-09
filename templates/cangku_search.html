@@ -38,17 +38,17 @@
 <form method="post">
         <div style="text-align: center">
         <input type="hidden" name='gongneng' id='gongneng1'>
-        <h2>查询数据</h2><a > 药品名称：</a><input name='ypmc'>
+        <h2>查询数据</h2><a > 药品名称：</a><input name='ypmc' size="10">
         <button type="submit" onclick="myFunc(1)" class="btn green">查询</button>
         <button type="submit" onclick="myFunc(2)" class="btn red">取消查询</button>
         <button type="submit" onclick="myFunc(5)" class="btn red">返回</button><br><br>
         <h2>删除数据</h2>
         <a>药品名称：</a><input name="ypmcsc"><br><br>
         <a>存储位置：</a><input name="ypwzsc"><br><br>
-        <a>生产日期：</a><input name="nian"><a>年</a><input name="yue"><a>月</a><input name="ri"><a>日</a><br><br>
-        {{textsc}}<br>
+        <a>生产日期：</a><input name="nian" size="4"><a>年</a><input name="yue" size="2"><a>月</a><input name="ri" size="2"><a>日</a><br><br>
+      
         <button type="submit" onclick="myFunc(6)" class="btn red">删除数据</button><br>
-        
+          {{textsc}}<br>
 
     
     
@@ -85,9 +85,9 @@
         {%endfor%}
     </table>
     <a>{{text}}</a><br>
-    <button onclick="myFunc(3)">上一页</button>
+    <button onclick="myFunc(3)" class="btn blue">上一页</button>
     <a>共{{count}}页当前第{{dq}}页</a>
-    <button onclick="myFunc(4)">下一页</button>
+    <button onclick="myFunc(4)" class="btn blue">下一页</button>
     </div>
     </form>
     </div>

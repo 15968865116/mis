@@ -81,6 +81,7 @@ text_for_yaofang_delete=''
 def index():
     global text_for_upload
     te={'text':text_for_upload}
+    session.pop('xingming',None)
     return render_template('upload.html',**te)
 @app.route('/index', methods=['POST'])
 def upload():
@@ -106,14 +107,20 @@ def upload():
             poc=re[3].encode('UTF-8')#解码,职位
             poc1=poc.strip()
             bpwd=b.encode('UTF-8')#解码
-            session['xingming']=name
-            session['zhiwei'] =poc1 
+            
+             
 
             if (pwdfn==bpwd and poc1=="医生"):#判断用户名密码是否正确
+                if not session.has_key('xingming'):
+                    session['xingming'] = name+'医生'
                 return redirect(url_for('login_for_doc'))
             elif (pwdfn==bpwd and poc1=="仓库管理员"):#判断用户名密码是否正确
+                if not session.has_key('xingming'):
+                    session['xingming'] = name+'仓库管理员'
                 return redirect(url_for('login_for_cangku'))
             elif (pwdfn==bpwd and poc1=="药房管理员"):#判断用户名密码是否正确
+                if not session.has_key('xingming'):
+                    session['xingming'] = name+'药房管理员'
                 return redirect(url_for('yaofangmanager'))
             else:
             	return redirect(url_for('wrong'))
@@ -121,6 +128,8 @@ def upload():
 
 @app.route('/login_for_doc',methods=['GET'])#医生
 def login_for_doc():
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
 
     context={'username':session['xingming']}
 
@@ -134,13 +143,15 @@ def readytocreate():
     elif(num=='2'):
     	return redirect(url_for('search_medicine'))#查询旧药方
     elif(num=='3'):
-        session['xingming']=''
+        session.pop('xingming',None)
         return redirect(url_for('index'))
 
 @app.route('/create_medicine',methods=['GET'])
 def create_medicine():
     global list_for_yd
     global a
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
     cursor.execute('select m_name from duizhao')
     allname=cursor.fetchall()
     list_for_allname=[]
@@ -239,6 +250,8 @@ def search_medicine():
     list_yaodanywcls=[]
     global yaodan
     global yaodancount
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
     cursor.execute('select * from yaodan where docname=%s',session['xingming'])
     all_news=cursor.fetchall()
     
@@ -313,8 +326,10 @@ def search_medicine1():
 
 @app.route('/login_for_cangku',methods=['GET'])#仓库管理
 def login_for_cangku():
-
-    return render_template('cangku.html')
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
+    content={'username':session['xingming']}
+    return render_template('cangku.html',**content)
 
 @app.route('/login_for_cangku',methods=['POST'])#仓库管理
 def login_for_cangku1():
@@ -328,9 +343,8 @@ def login_for_cangku1():
     elif(caozuo=='4'):
         return redirect(url_for('cangku_jinchu'))
     elif(caozuo=='5'):
-        session['xingming']=''
+        session.pop('xingming',None)
         return redirect(url_for('index'))
-
 
 @app.route('/cangku_jinhuo',methods=['GET'])#仓库进货情况查询
 def cangku_jinhuo():
@@ -339,6 +353,8 @@ def cangku_jinhuo():
     global cangku_page_jinhuo
     global list_for_cangku_jinhuo
     global text_for_cangku_jinhuo
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
     if(control_for_ckjinhuo==0):
         cursor.execute('select * from jinhuo')
         jinhuo=cursor.fetchall()
@@ -551,8 +567,6 @@ def cangku_jinhuo1():
             list_for_cangku_jinhuo=[]
             return redirect(url_for('cangku_jinhuo'))
 
-
-
 @app.route('/cangku_chuhuo',methods=['GET'])#仓库出货情况查询
 def cangku_chuhuo():
     global control_for_ckchuhuo
@@ -560,6 +574,8 @@ def cangku_chuhuo():
     global cangku_page_chuhuo
     global list_for_cangku_chuhuo
     global text_for_cangku_chuhuo
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
     if(control_for_ckchuhuo==0):
         cursor.execute('select * from chuhuo')
         chuhuo=cursor.fetchall()
@@ -753,8 +769,6 @@ def cangku_chuhuo1():
             list_for_cangku_chuhuo=[]
             return redirect(url_for('cangku_chuhuo'))
     
-    
-
 @app.route('/cangku_search',methods=['GET'])#仓库全部查询
 def cangku_search():
     global cangku_page_search
@@ -764,6 +778,8 @@ def cangku_search():
     global pick_for_cangku_all
     global list_for_cangku_select
     global text_for_cangku_delete
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
     if(control_for_cksearch==0):
         cursor.execute('select * from cangkukucun')
         cangkuyp=cursor.fetchall()
@@ -965,13 +981,13 @@ def cangku_search1():
             text_for_cangku_delete='有输入为空，删除失败'
             return redirect(url_for('cangku_search'))
 
-
-
 @app.route('/cangku_jinchu',methods=['GET'])#仓库进出登记
 def cangku_jinchu():
     global text_for_cangku_jin
     global text_for_cangku_chu
     global text_for_duizhao
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
     me={'textj':text_for_cangku_jin,'textc':text_for_cangku_chu,'textdz':text_for_duizhao}
     return render_template('cangku_jinchu.html',**me)
 
@@ -1109,8 +1125,10 @@ def cangku_jinchu1():
 
 @app.route('/yaofangmanager',methods=['GET'])
 def yaofangmanager():
-
-    return render_template('yaofangcaozuo.html')
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
+    content={'username':session['xingming']}
+    return render_template('yaofangcaozuo.html',**content)
 
 @app.route('/yaofangmanager',methods=['POST'])
 def yaofangmanager2():
@@ -1124,10 +1142,8 @@ def yaofangmanager2():
     elif(manage_name=='4'):
         return redirect(url_for('quyaojilu'))
     elif(manage_name=='5'):
-        session['xingming']=""
+        session.pop('xingming',None)
         return redirect(url_for('index'))
-
-    
 
 @app.route('/chakankucunyf',methods=['GET'])
 def chakankucunyf():
@@ -1136,6 +1152,8 @@ def chakankucunyf():
     global text
     global text_for_yaofang_delete
     global list_for_chaxun
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
     if(control==0):
         list_kucun=[]
         list_news_kucun=[]
@@ -1314,9 +1332,10 @@ def chakankuyf1():
             text_for_yaofang_delete='有输入为空，删除失败'
             return redirect(url_for('chakankucunyf'))
 
-
 @app.route('/yaofangin',methods=['GET'])
 def yaofangin():
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
     global text2
     
     text3={'text':text2}
@@ -1365,13 +1384,13 @@ def yaofangin1():
         text2=""
         return redirect(url_for('yaofangmanager'))
 
-    
-
 @app.route('/quyaojilu',methods=['GET'])
 def quyaojilu():
     global recorddq
     global recordcount
     global control2
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
     if(control2==0):
         cursor.execute('select * from getmedicinerecord')
         record=cursor.fetchall()
@@ -1493,11 +1512,10 @@ def quyaojilu1():
         text_for_qy=''
         return redirect(url_for('quyaojilu'))
 
-
-
-
 @app.route('/login_for_yaofang',methods=['GET'])#药房取药和出库操作
 def login_for_yaofang():
+    if not session.has_key('xingming'):
+        return redirect(url_for('index'))
 
     cursor.execute('select m_name from duizhao')
     allname=cursor.fetchall()
